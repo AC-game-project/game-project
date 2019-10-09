@@ -1,4 +1,6 @@
-package org.academiadecodigo.vimdiesels.gameprojectac;
+package org.academiadecodigo.vimdiesels.gameprojectac.enemy;
+
+import org.academiadecodigo.vimdiesels.gameprojectac.Position;
 
 public class Enemy {
 

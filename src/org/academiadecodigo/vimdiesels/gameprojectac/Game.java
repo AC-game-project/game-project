@@ -2,6 +2,7 @@ package org.academiadecodigo.vimdiesels.gameprojectac;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 
 public class Game {
 

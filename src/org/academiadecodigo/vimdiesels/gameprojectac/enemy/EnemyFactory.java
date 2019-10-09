@@ -1,6 +1,8 @@
-package org.academiadecodigo.vimdiesels.gameprojectac;
+package org.academiadecodigo.vimdiesels.gameprojectac.enemy;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.vimdiesels.gameprojectac.Position;
+import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 
 public class EnemyFactory {
 
