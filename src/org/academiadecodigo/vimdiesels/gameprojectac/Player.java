@@ -11,15 +11,17 @@ public class Player implements KeyboardHandler {
     private Picture picture;
     private Keyboard keyboard;
 
+    Sound shipEngine;
+
     public Player(){
 
-        this.picture = new Picture(300, 850, "resources/f1.png");
+        this.picture = new Picture(300, 800, "resources/spaceship.png");
         this.keyboard = new Keyboard(this);
+        shipEngine = new Sound("resources/sound/slow-travel.wav");
+        shipEngine.play(false);
     }
 
     public void init(){
-
-        picture.load("resources/f1.png");
         picture.draw();
 
         KeyboardEvent left = new KeyboardEvent();
