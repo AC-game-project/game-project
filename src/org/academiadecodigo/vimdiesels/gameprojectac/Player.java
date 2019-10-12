@@ -17,7 +17,7 @@ public class Player implements KeyboardHandler {
 
         this.picture = new Picture(300, 800, "resources/spaceship.png");
         this.keyboard = new Keyboard(this);
-        shipEngine = new Sound("resources/sound/slow-travel.wav");
+        //shipEngine = new Sound("resources/sound/slow-travel.wav");
         //shipEngine.play(false);
     }
 
