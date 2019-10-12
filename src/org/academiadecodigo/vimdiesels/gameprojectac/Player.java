@@ -8,20 +8,13 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player implements KeyboardHandler {
 
-    private int x;
-    private int y;
-
     private Picture picture;
     private Keyboard keyboard;
-
-    private Position position;
 
     public Player(){
 
         this.picture = new Picture(300, 850, "resources/f1.png");
         this.keyboard = new Keyboard(this);
-        this.position = new Position();
-
     }
 
     public void init(){
@@ -58,12 +51,10 @@ public class Player implements KeyboardHandler {
             default:
                 System.out.println("PROBLEMMMMM!!");
         }
-
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
     }
-
 }
