@@ -15,7 +15,7 @@ public class Player implements KeyboardHandler {
 
     public Player(){
 
-        this.picture = new Picture(300, 800, "resources/spaceship.png");
+        this.picture = new Picture((GameConfig.CANVAS_WIDTH / 2), (GameConfig.CANVAS_HEIGHT - 100), "resources/spaceship.png");
         this.keyboard = new Keyboard(this);
         //shipEngine = new Sound("resources/sound/slow-travel.wav");
         //shipEngine.play(false);
@@ -49,7 +49,7 @@ public class Player implements KeyboardHandler {
                 }
                 break;
             case KeyboardEvent.KEY_RIGHT:
-                if (picture.getX() <= 600 - picture.getWidth()) {
+                if (picture.getX() <= (GameConfig.CANVAS_WIDTH - picture.getWidth())) {
                     picture.translate(10, 0);
                 }
                 break;

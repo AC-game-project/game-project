@@ -1,18 +1,18 @@
 package org.academiadecodigo.vimdiesels.gameprojectac.enemy;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.vimdiesels.gameprojectac.GameConfig;
 
 public class Enemy {
 
-    private static final int PADDING = 10;
+
     private boolean destroyed;
     private Picture enemyPicture;
 
 
     public Enemy (int random) {
 
-        this.enemyPicture = new Picture(random, -64, "resources/design/Asteroids/Asteroid-A-10-00.png");
-        //enemyPicture.load("resources/design/Asteroids/Asteroid-A-10-00.png");
+        this.enemyPicture = new Picture( random, -GameConfig.ENEMIES_SIZE, "resources/asteroid01.png");
         enemyPicture.draw();
     }
 

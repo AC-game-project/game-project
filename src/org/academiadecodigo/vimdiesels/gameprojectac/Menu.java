@@ -11,9 +11,6 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Menu implements KeyboardHandler {
 
-
-    private static final double PADDING = 10;
-
     private Rectangle rectangle;
     private Picture background;
     private Picture play;
@@ -24,8 +21,8 @@ public class Menu implements KeyboardHandler {
 
     public Menu(){
 
-        this.rectangle = new Rectangle(PADDING, PADDING, 600, 900);
-        this.background = new Picture(PADDING, PADDING, "resources/Stars Small_1v02.png");
+        this.rectangle = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
+        this.background = new Picture(GameConfig.PADDING, GameConfig.PADDING, "resources/Stars Small_1v02.png");
         this.play = new Picture( 175, 400, "resources/play_buttons_pressed_blue.png");
         this.pressToEnter = new Text(235, 650, "Press Space button to Start.");
         this.planet = new Picture( 260, 50, "resources/planet sprite- purple- by alpha_rats copy.png");

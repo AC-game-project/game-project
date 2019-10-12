@@ -7,32 +7,26 @@ import org.academiadecodigo.vimdiesels.gameprojectac.enemy.EnemyFactory;
 
 public class Game {
 
-    private static final double PADDING = 10;
     private int score;
 
     private boolean lost;
 
     private Rectangle canvasSize;
     private Picture background;
-    private Position canvasPosition;
     private CollisionDetector cDetector;
 
     private Menu menu;
     private Player player;
     private Enemy[] enemies;
 
-    private int numEnemies = 30;
-    private int count = 0;
-    private int i = 0;
-
     public Game() {
 
         this.score = 0;
         this.lost = false;
-        this.enemies = new Enemy[numEnemies];
+        this.enemies = new Enemy[GameConfig.NUMBER_ENEMIES];
         this.player = new Player();
-        this.canvasSize = new Rectangle(PADDING, PADDING, 600, 900);
-        this.background = new Picture(PADDING, PADDING, "resources/Stars Small_1v02.png");
+        this.canvasSize = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
+        this.background = new Picture(GameConfig.PADDING, GameConfig.PADDING);
 
     }
 
@@ -40,7 +34,7 @@ public class Game {
 
         canvasSize.setColor(Color.BLACK);
         canvasSize.fill();
-        this.canvasPosition = new Position(canvasSize);
+
         //create menu
         // menu = new Menu();
         // menu.start();
@@ -51,7 +45,6 @@ public class Game {
 
         canvasSize.setColor(Color.BLACK);
         canvasSize.fill();
-
         background.load("resources/Stars Small_1v02.png");
         background.draw();
 
@@ -59,15 +52,12 @@ public class Game {
 
         this.cDetector = new CollisionDetector(player);
 
-        //iniciate enemies
         createEnemy();
 
         while (true) {
 
-            System.out.println("hello");
-            Thread.sleep(5);
+            Thread.sleep(GameConfig.THREAD_DELAY);
             moveEnemy();
-
         }
     }
 
@@ -80,51 +70,33 @@ public class Game {
 
     public void createEnemy() throws InterruptedException {
 
-        //moveEnemy( EnemyFactory.getNewEnemy());
         for (int i = 0; i < enemies.length; i++) {
 
             enemies[i] = EnemyFactory.getNewEnemy();
-            System.out.println(enemies[i]);
         }
-
-        /*enemies[i] = EnemyFactory.getNewEnemy();
-        i++;*/
-
-
     }
 
 
-    public void moveEnemy() throws InterruptedException {
-
+    public void moveEnemy() {
 
         //when enemy passes our max y , it hides and score increseases
         for (int j = 0; j < enemies.length; j++) {
-            // enemies[j].move();
 
             if(j == 0){
                 enemies[j].move();
-                if (cDetector.doOverlap(enemies[j])) {
-                    break;
+                if (cDetector.doOverlap(enemies[j]) || enemies[j].getEnemyPicture().getY() > (GameConfig.CANVAS_HEIGHT - GameConfig.ENEMIES_SIZE - GameConfig.PADDING)) {
+                    enemies[j].getEnemyPicture().delete();
                 }
 
             } else {
-                if(enemies[j - 1].getEnemyPicture().getY()  > 30){
+                if(enemies[j - 1].getEnemyPicture().getY()  > GameConfig.ENEMIES_DISTANCE){
                     enemies[j].move();
-                    if (cDetector.doOverlap(enemies[j])) {
-                        return;
+                    if (cDetector.doOverlap(enemies[j]) || enemies[j].getEnemyPicture().getY() > (GameConfig.CANVAS_HEIGHT - GameConfig.ENEMIES_SIZE - GameConfig.PADDING)) {
+                        enemies[j].getEnemyPicture().delete();
                     }
                 }
             }
-
-            if (enemies[j].getEnemyPicture().getY() > 840) {
-                enemies[j].getEnemyPicture().delete();
-
-            }
-
         }
-
-
-
     }
 
 
