@@ -33,6 +33,9 @@ public class Player implements KeyboardHandler {
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
     }
+    public Picture getPlayerPicture() {
+        return picture;
+    }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {

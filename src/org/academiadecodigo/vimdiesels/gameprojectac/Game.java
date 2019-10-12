@@ -15,6 +15,7 @@ public class Game {
     private Rectangle canvasSize;
     private Picture background;
     private Position canvasPosition;
+    private CollisionDetector cDetector;
 
     private Menu menu;
     private Player player;
@@ -56,6 +57,7 @@ public class Game {
 
         player.init();
 
+        this.cDetector = new CollisionDetector(player);
 
         //iniciate enemies
         createEnemy();
@@ -96,27 +98,29 @@ public class Game {
 
 
         //when enemy passes our max y , it hides and score increseases
-        System.out.println(enemies.length);
         for (int j = 0; j < enemies.length; j++) {
             // enemies[j].move();
 
             if(j == 0){
                 enemies[j].move();
+                if (cDetector.doOverlap(enemies[j])) {
+                    break;
+                }
+
             } else {
                 if(enemies[j - 1].getEnemyPicture().getY()  > 30){
                     enemies[j].move();
+                    if (cDetector.doOverlap(enemies[j])) {
+                        return;
+                    }
                 }
             }
 
             if (enemies[j].getEnemyPicture().getY() > 840) {
                 enemies[j].getEnemyPicture().delete();
-                //i--;
+
             }
-            count++;
-            if (count == 100) {
-                count = 0;
-                //createEnemy();
-            }
+
         }
 
 
