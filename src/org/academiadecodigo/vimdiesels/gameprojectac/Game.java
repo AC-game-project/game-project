@@ -3,11 +3,14 @@ package org.academiadecodigo.vimdiesels.gameprojectac;
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
+import org.academiadecodigo.vimdiesels.gameprojectac.enemy.EnemyFactory;
 
 public class Game {
 
     private static final double PADDING = 10;
     private int score;
+
+    private boolean lost;
 
     private Rectangle canvasSize;
     private Picture background;
@@ -15,83 +18,129 @@ public class Game {
 
     private Menu menu;
     private Player player;
-    private Enemy enemy;
+    private Enemy[] enemies;
 
+    private int numEnemies = 30;
+    private int count = 0;
+    private int i = 0;
 
-    public Game(){
+    public Game() {
 
         this.score = 0;
+        this.lost = false;
+        this.enemies = new Enemy[numEnemies];
         this.player = new Player();
         this.canvasSize = new Rectangle(PADDING, PADDING, 600, 900);
         this.background = new Picture(PADDING, PADDING, "resources/Stars Small_1v02.png");
 
     }
 
-    public void init(){
+    public void init() {
 
         canvasSize.setColor(Color.BLACK);
         canvasSize.fill();
         this.canvasPosition = new Position(canvasSize);
         //create menu
-
+        // menu = new Menu();
+        // menu.start();
     }
 
 
-    public void start(){
+    public void start() throws InterruptedException {
 
-
+        canvasSize.setColor(Color.BLACK);
+        canvasSize.fill();
 
         background.load("resources/Stars Small_1v02.png");
         background.draw();
 
-        //player.init();
-        menu = new Menu();
-        menu.start();
-        //iniciate enemies
+        player.init();
 
+
+        //iniciate enemies
+        createEnemy();
+
+        while (true) {
+
+            System.out.println("hello");
+            Thread.sleep(5);
+            moveEnemy();
+
+        }
     }
 
-    public Menu createMenu(){
+    public Menu createMenu() {
 
         //inicialize a new StartMenu;
         // menu show();
         return null;
     }
 
-    public Enemy createEnemy(){
+    public void createEnemy() throws InterruptedException {
 
-        //asks EnemyFactory for new enemy;
-        //this.enemy = EnemyFactory.getNewEnemy();
-        // enemy.show();
-        return null;
+        //moveEnemy( EnemyFactory.getNewEnemy());
+        for (int i = 0; i < enemies.length; i++) {
+
+            enemies[i] = EnemyFactory.getNewEnemy();
+            System.out.println(enemies[i]);
+        }
+
+        /*enemies[i] = EnemyFactory.getNewEnemy();
+        i++;*/
+
+
     }
 
-    public void enemyTracker(){
 
-        //when enemy passes our max y , it hides and score increseases;
-        //enemy.hide();
-        //score += 10;
+    public void moveEnemy() throws InterruptedException {
+
+
+        //when enemy passes our max y , it hides and score increseases
+        System.out.println(enemies.length);
+        for (int j = 0; j < enemies.length; j++) {
+            // enemies[j].move();
+
+            if(j == 0){
+                enemies[j].move();
+            } else {
+                if(enemies[j - 1].getEnemyPicture().getY()  > 30){
+                    enemies[j].move();
+                }
+            }
+
+            if (enemies[j].getEnemyPicture().getY() > 840) {
+                enemies[j].getEnemyPicture().delete();
+                //i--;
+            }
+            count++;
+            if (count == 100) {
+                count = 0;
+                //createEnemy();
+            }
+        }
+
+
 
     }
 
-    public void changeLevel(){
+
+    public void changeLevel() {
 
         //makes enemies move faster
         //creates more enemies?
 
     }
 
-    public void gameOver(){
+    public void gameOver() {
 
         // relate with score control
         // go back no start menu
     }
 
-    public void gameExit(){
+    public void gameExit() {
 
         // is it needed?
         //hides everything
         // maybe funny see ya later background
     }
-
 }

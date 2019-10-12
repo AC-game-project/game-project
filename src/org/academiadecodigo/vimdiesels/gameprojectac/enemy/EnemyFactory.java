@@ -6,13 +6,13 @@ import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 
 public class EnemyFactory {
 
-    private Position pos;
-    private Picture picture;
+    private static final int PADDING = 10;
 
-    public Enemy getNewEnemy() {
+    public static Enemy getNewEnemy() {
 
-        this.picture = new Picture(50, 10, "resources/Asteroid-A-10-00.png");
-        return new Enemy();
+        //creates enemy and passes random int for x value
+        int random = (PADDING) + (int)(Math.random()* ( 600 - PADDING + 1));
+        return new Enemy(random);
     }
 }
 

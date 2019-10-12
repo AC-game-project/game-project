@@ -19,7 +19,7 @@ public class Player implements KeyboardHandler {
 
     public Player(){
 
-        this.picture = new Picture(300, 850, "resources/f1.png");
+        this.picture = new Picture(300, 850, "resources/design/Ship/f1.png");
         this.keyboard = new Keyboard(this);
         this.position = new Position();
 
@@ -36,7 +36,7 @@ public class Player implements KeyboardHandler {
 
     public void init(){
 
-        picture.load("resources/f1.png");
+        //picture.load("resources/f1.png");
         picture.draw();
 
 
