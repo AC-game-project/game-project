@@ -11,9 +11,9 @@ public class Player implements KeyboardHandler {
     private Picture picture;
     private Keyboard keyboard;
 
-    Sound shipEngine;
+    //private Sound shipEngine;
 
-    public Player(){
+    public Player() {
 
         this.picture = new Picture((GameConfig.CANVAS_WIDTH / 2), (GameConfig.CANVAS_HEIGHT - 100), "resources/spaceship.png");
         this.keyboard = new Keyboard(this);
@@ -21,21 +21,22 @@ public class Player implements KeyboardHandler {
         //shipEngine.play(false);
     }
 
-    public void init(){
+    public void init() {
+
         picture.draw();
 
         KeyboardEvent left = new KeyboardEvent();
         left.setKey(KeyboardEvent.KEY_LEFT);
         left.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
         KeyboardEvent right = new KeyboardEvent();
         right.setKey(KeyboardEvent.KEY_RIGHT);
         right.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
     }
+
     public Picture getPlayerPicture() {
+
         return picture;
     }
 

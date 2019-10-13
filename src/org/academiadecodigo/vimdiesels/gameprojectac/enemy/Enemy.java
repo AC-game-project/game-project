@@ -2,7 +2,6 @@ package org.academiadecodigo.vimdiesels.gameprojectac.enemy;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.vimdiesels.gameprojectac.GameConfig;
-import org.academiadecodigo.vimdiesels.gameprojectac.Score;
 
 public class Enemy {
 
@@ -17,18 +16,22 @@ public class Enemy {
     }
 
     public void move() {
+
         enemyPicture.translate(0, 1);
     }
 
     public Picture getEnemyPicture() {
+
         return enemyPicture;
     }
 
     public boolean isDestroyed() {
+
         return destroyed;
     }
 
     public void setDestroyed() {
+
         destroyed = true;
     }
 
