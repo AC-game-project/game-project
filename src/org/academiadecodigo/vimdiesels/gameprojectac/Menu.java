@@ -18,19 +18,25 @@ public class Menu implements KeyboardHandler {
     private Keyboard keyboard;
     private Text pressToEnter;
 
+    private boolean spaceStart;
+    private Game game;
 
-    public Menu(){
+
+    public Menu(Game game) {
 
         this.rectangle = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
         this.background = new Picture(GameConfig.PADDING, GameConfig.PADDING, "resources/Stars Small_1v02.png");
-        this.play = new Picture( 175, 400, "resources/play_buttons_pressed_blue.png");
+        this.play = new Picture(175, 400, "resources/play_buttons_pressed_blue.png");
         this.pressToEnter = new Text(235, 650, "Press Space button to Start.");
-        this.planet = new Picture( 260, 50, "resources/planet sprite- purple- by alpha_rats copy.png");
+        this.planet = new Picture(260, 50, "resources/planet sprite- purple- by alpha_rats copy.png");
         this.keyboard = new Keyboard(this);
+
+        this.game = game;
+        this.spaceStart = false;
     }
 
 
-    public void start(){
+    public void start() {
 
         //Background color
         rectangle.setColor(Color.BLACK);
@@ -57,20 +63,56 @@ public class Menu implements KeyboardHandler {
         KeyboardEvent space = new KeyboardEvent();
         space.setKey(KeyboardEvent.KEY_SPACE);
         space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        keyboard.addEventListener(space);
 
+        keyboard.addEventListener(space);
+    }
+
+    public void hideMenu(){
+
+        //Background color
+        this.rectangle.delete();
+
+        //Background Image
+        this.background.delete();
+
+        // Button Play
+        this.play.delete();
+
+        //Planet Image
+        this.planet.delete();
+
+        //Sentence press to start
+        this.pressToEnter.delete();
 
     }
+
+    public boolean isSpaceStart() {
+        return this.spaceStart;
+    }
+
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
-            //game.start();
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_SPACE:
+                try {
+                hideMenu();
+                    System.out.println("try");
+                    spaceStart = true;
+                    game.start();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+            default:
+                System.out.println("no energy!!");
         }
     }
 
     @Override
-    public void keyReleased(KeyboardEvent var1){
+    public void keyReleased(KeyboardEvent var1) {
 
     }
 }

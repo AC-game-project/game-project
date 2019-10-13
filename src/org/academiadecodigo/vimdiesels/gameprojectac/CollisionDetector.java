@@ -29,24 +29,16 @@ public class CollisionDetector {
 
     public boolean doOverlap(Enemy enemy) {
 
-       // if(enemy.getEnemyPicture().getX() == player.getPlayerPicture().getX() && enemy.getEnemyPicture().getY() == player.getPlayerPicture().getY()){
-         //   return true;
-       // }
-
 
         if (player.getPlayerPicture().getX() < (enemy.getEnemyPicture().getX() + enemy.getEnemyPicture().getWidth()) &&
                 (player.getPlayerPicture().getX() + player.getPlayerPicture().getWidth()) > enemy.getEnemyPicture().getX() &&
                 player.getPlayerPicture().getY() < (enemy.getEnemyPicture().getY() + enemy.getEnemyPicture().getHeight()) &&
                 (player.getPlayerPicture().getY() + player.getPlayerPicture().getHeight()) > enemy.getEnemyPicture().getY()) {
 
-
-            System.out.println("colisiom");
             return true;
         }
 
 
-
-        System.out.println("no collision");
         return false;
     }
 

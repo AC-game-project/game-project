@@ -8,7 +8,7 @@ public class GameConfig {
 
     public  static final int CANVAS_HEIGHT = 900;
 
-    public static final int NUMBER_ENEMIES = 200;
+    public static final int NUMBER_ENEMIES = 3;
 
     public static final int THREAD_DELAY = 5;
 

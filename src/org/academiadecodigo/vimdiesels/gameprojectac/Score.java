@@ -15,6 +15,7 @@ public class Score {
     }
 
     public void setScore(int points) {
+
         score.setText( String.valueOf( this.points += points ) );
     }
 
