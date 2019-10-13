@@ -6,36 +6,19 @@ import org.academiadecodigo.vimdiesels.gameprojectac.Score;
 
 public class Enemy {
 
-
     private boolean destroyed;
     private Picture enemyPicture;
-
 
     public Enemy(int random) {
 
         this.destroyed = false;
         this.enemyPicture = new Picture(random, -GameConfig.ENEMIES_SIZE, "resources/asteroid01.png");
         enemyPicture.draw();
-
     }
 
-    public void move(Score score) {
-
-        //method to move down the enemy or asteroid
-        if (!isDestroyed()) {
-            enemyPicture.translate(0, 1);
-            return;
-        }
-
-        enemyPicture.delete();
-
-        if (isDestroyed() ) {
-            score.setScore(10);
-            System.out.println(score);
-        }
-        // set score
+    public void move() {
+        enemyPicture.translate(0, 1);
     }
-
 
     public Picture getEnemyPicture() {
         return enemyPicture;
@@ -44,7 +27,6 @@ public class Enemy {
     public boolean isDestroyed() {
         return destroyed;
     }
-
 
     public void setDestroyed() {
         destroyed = true;

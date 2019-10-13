@@ -9,6 +9,8 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 import org.academiadecodigo.vimdiesels.gameprojectac.enemy.EnemyFactory;
 
+import java.util.LinkedList;
+
 public class Game implements KeyboardHandler {
 
     private Score score;
@@ -23,6 +25,7 @@ public class Game implements KeyboardHandler {
 
     private Player player;
     private Enemy[] enemies;
+    private LinkedList<Enemy> enemyLinkedList;
 
     private Keyboard keyboard;
 
@@ -41,6 +44,8 @@ public class Game implements KeyboardHandler {
         space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
         keyboard.addEventListener(space);
+
+        enemyLinkedList = new LinkedList<>();
     }
 
     public void init() throws InterruptedException {
@@ -57,24 +62,22 @@ public class Game implements KeyboardHandler {
 
         this.menu = new Menu();
         menu.start();
-        createEnemy();
 
+        createEnemy();
     }
 
 
     public void start() throws InterruptedException {
-        menu.hideMenu();
+        //menu.hideMenu();
         this.score = new Score();
 
         player.init();
 
         this.cDetector = new CollisionDetector(player);
 
-       while(!lost) {
+        while (true) {
 
             Thread.sleep(5);
-
-            System.out.println("here");
 
             moveEnemy();
         }
@@ -91,31 +94,37 @@ public class Game implements KeyboardHandler {
 
         for (int i = 0; i < enemies.length; i++) {
 
+            enemyLinkedList.add(EnemyFactory.getNewEnemy());
+            System.out.println(enemyLinkedList.get(i));
             enemies[i] = EnemyFactory.getNewEnemy();
         }
+
+
     }
 
 
     public void moveEnemy() throws InterruptedException {
 
         //when enemy passes our max y , it hides and score increseases
-        for (int j = 0; j < enemies.length; j++) {
 
+        for (Enemy enemy : enemyLinkedList) {
+            int currentI = enemyLinkedList.indexOf(enemy);
 
-            if (j == 0 || enemies[j - 1].getEnemyPicture().getY() > GameConfig.ENEMIES_DISTANCE) {
+            if (currentI == 0 || enemyLinkedList.get(currentI - 1).getEnemyPicture().getY() > GameConfig.ENEMIES_DISTANCE) {
+                enemy.move();
 
-                enemies[j].move(this.score);
+                if (cDetector.doOverlap(enemy) || enemyLinkedList.get(currentI).getEnemyPicture().getY() == (GameConfig.CANVAS_HEIGHT - GameConfig.ENEMIES_SIZE)) {
+                    enemy.getEnemyPicture().delete();
+                    if (enemy.isDestroyed()) {
+                        score.setScore(-10);
 
-                if (cDetector.doOverlap(enemies[j]) || enemies[j].getEnemyPicture().getY() == (GameConfig.CANVAS_HEIGHT - GameConfig.ENEMIES_SIZE)) {
-
-                    enemies[j].setDestroyed();
-
+                        continue;
+                    }
+                    score.setScore(10);
                 }
             }
 
-            if(j == enemies.length - 1){
-                this.lost = true;
-            }
+
         }
     }
 
@@ -146,11 +155,13 @@ public class Game implements KeyboardHandler {
             case KeyboardEvent.KEY_SPACE:
 
 
+                menu.hideMenu();
                 try {
                     start();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 break;
 
             default:

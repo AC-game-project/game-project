@@ -7,6 +7,8 @@ public class Main {
 
         Game game = new Game();
         game.init();
+
+        //Thread.sleep(1000);
         //game.start();
 
     }

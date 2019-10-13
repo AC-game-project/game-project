@@ -7,40 +7,33 @@ import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 
 public class CollisionDetector {
 
-    private Picture picture;
     private Player player;
-    private Enemy enemy;
-    private boolean crashed;
-    private Rectangle bumper;
 
+    private boolean alreadyCollided;
 
-    public CollisionDetector (Player player) {
+    public CollisionDetector(Player player) {
 
-      this.player = player;
-      //  this.bumper = new Rectangle(player.getPlayerPicture().getX(), player.getPlayerPicture().getY(), player.getPlayerPicture().getWidth(), player.getPlayerPicture().getHeight());
-        this.crashed = false;
-
-       // this.enemy = enemy;
-      //  bumper.setColor(Color.GREEN);
-        //bumper.draw();
+        this.player = player;
+        this.alreadyCollided = false;
     }
-
-
 
     public boolean doOverlap(Enemy enemy) {
 
-
-        if (player.getPlayerPicture().getX() < (enemy.getEnemyPicture().getX() + enemy.getEnemyPicture().getWidth()) &&
+        if (!enemy.isDestroyed() && player.getPlayerPicture().getX() < (enemy.getEnemyPicture().getX() + enemy.getEnemyPicture().getWidth()) &&
                 (player.getPlayerPicture().getX() + player.getPlayerPicture().getWidth()) > enemy.getEnemyPicture().getX() &&
                 player.getPlayerPicture().getY() < (enemy.getEnemyPicture().getY() + enemy.getEnemyPicture().getHeight()) &&
                 (player.getPlayerPicture().getY() + player.getPlayerPicture().getHeight()) > enemy.getEnemyPicture().getY()) {
+            System.out.println("collision");
+            //enemy.getEnemyPicture().delete();
+            enemy.setDestroyed();
 
             return true;
         }
 
-
         return false;
     }
 
-
+    public boolean isAlreadyCollided() {
+        return alreadyCollided;
+    }
 }

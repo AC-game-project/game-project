@@ -35,7 +35,6 @@ public class Menu {
 
     public void start() {
 
-
         // Button Play
         play.draw();
 
@@ -46,7 +45,6 @@ public class Menu {
         pressToEnter.setColor(Color.GREEN);
         pressToEnter.draw();
         pressToEnter.grow(20, 15);
-
 
     }
 
