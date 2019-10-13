@@ -1,11 +1,15 @@
 package org.academiadecodigo.vimdiesels.gameprojectac;
 
 import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.vimdiesels.gameprojectac.enemy.Enemy;
 import org.academiadecodigo.vimdiesels.gameprojectac.enemy.EnemyFactory;
 
-public class Game {
+public class Game implements KeyboardHandler {
 
     private Score score;
 
@@ -16,8 +20,11 @@ public class Game {
     private CollisionDetector cDetector;
 
     private Menu menu;
+
     private Player player;
     private Enemy[] enemies;
+
+    private Keyboard keyboard;
 
     public Game() {
 
@@ -28,6 +35,12 @@ public class Game {
         this.canvasSize = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
         this.background = new Picture(GameConfig.PADDING, GameConfig.PADDING);
 
+        this.keyboard = new Keyboard(this);
+        KeyboardEvent space = new KeyboardEvent();
+        space.setKey(KeyboardEvent.KEY_SPACE);
+        space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        keyboard.addEventListener(space);
     }
 
     public void init() throws InterruptedException {
@@ -35,42 +48,34 @@ public class Game {
         canvasSize.setColor(Color.BLACK);
         canvasSize.fill();
 
+        background.load("resources/Stars Small_1v02.png");
+        background.draw();
+
         //create menu
-        this.menu = new Menu(this);
+        //this.menu = new Picture(20, 20, "resources/optionst_buttons_pressed.png");
+        //menu.draw();
 
+        this.menu = new Menu();
         menu.start();
+        createEnemy();
 
-        //this.start();
-        /*if(menu.isSpaceStart()) {
-            this.start();
-        }*/
     }
 
 
     public void start() throws InterruptedException {
-
-        System.out.println("here");
         menu.hideMenu();
-
-        canvasSize.setColor(Color.BLACK);
-        canvasSize.fill();
-        background.load("resources/Stars Small_1v02.png");
-        background.draw();
-
-        System.out.println("background");
         this.score = new Score();
 
-
         player.init();
-        System.out.println("player;");
 
         this.cDetector = new CollisionDetector(player);
 
-        createEnemy();
+       while(!lost) {
 
-        while (true) {
+            Thread.sleep(5);
 
-            Thread.sleep(GameConfig.THREAD_DELAY);
+            System.out.println("here");
+
             moveEnemy();
         }
     }
@@ -91,31 +96,28 @@ public class Game {
     }
 
 
-    public void moveEnemy() {
+    public void moveEnemy() throws InterruptedException {
 
         //when enemy passes our max y , it hides and score increseases
         for (int j = 0; j < enemies.length; j++) {
 
+
             if (j == 0 || enemies[j - 1].getEnemyPicture().getY() > GameConfig.ENEMIES_DISTANCE) {
-                    enemies[j].move(this.score);
+
+                enemies[j].move(this.score);
+
                 if (cDetector.doOverlap(enemies[j]) || enemies[j].getEnemyPicture().getY() == (GameConfig.CANVAS_HEIGHT - GameConfig.ENEMIES_SIZE)) {
 
-                        enemies[j].setDestroyed();
-                }
+                    enemies[j].setDestroyed();
 
+                }
             }
 
-            /*if (enemies[j - 1].getEnemyPicture().getY() > GameConfig.ENEMIES_DISTANCE) {
-                enemies[j].move(this.score);
-                if (cDetector.doOverlap(enemies[j])) {
-                    enemies[j].setDestroyed();
-                }
-
-
-            }*/
+            if(j == enemies.length - 1){
+                this.lost = true;
+            }
         }
     }
-
 
     public void changeLevel() {
 
@@ -135,5 +137,29 @@ public class Game {
         // is it needed?
         //hides everything
         // maybe funny see ya later background
+    }
+
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_SPACE:
+
+
+                try {
+                    start();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            default:
+                System.out.println("no energy!!");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
     }
 }
