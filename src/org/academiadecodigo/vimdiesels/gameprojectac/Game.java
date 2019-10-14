@@ -106,11 +106,16 @@ public class Game implements KeyboardHandler {
 
                     if (enemy.isDestroyed()) {
                         enemyLinkedList.clear();
-                        GameOver gameOver = new GameOver();
+                        GameOver gameOver = new GameOver(score.getPoints());
                         continue;
                     }
 
                     score.setScore(10);
+
+                    if(currentI == GameConfig.NUMBER_ENEMIES - 1){
+
+                        GameOver gameOver = new GameOver(score.getPoints());
+                    }
                 }
             }
         }

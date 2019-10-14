@@ -17,7 +17,7 @@ public class Enemy {
 
     public void move() {
 
-        enemyPicture.translate(0, 1);
+        enemyPicture.translate(0, 5);
     }
 
     public Picture getEnemyPicture() {

@@ -15,6 +15,10 @@ public class Score {
         score.draw();
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public void setScore(int points) {
 
         score.setText( String.valueOf( this.points += points ) );

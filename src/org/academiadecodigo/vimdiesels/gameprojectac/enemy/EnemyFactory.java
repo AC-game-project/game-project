@@ -6,7 +6,7 @@ public class EnemyFactory {
 
     public static Enemy getNewEnemy() {
 
-        int random = (GameConfig.PADDING + 5) + (int) (Math.random() * (GameConfig.CANVAS_WIDTH - GameConfig.ENEMIES_SIZE) - GameConfig.PADDING + 1);
+        int random = (GameConfig.PADDING + 5) + (int) (Math.random() * (GameConfig.CANVAS_WIDTH - GameConfig.ENEMIES_SIZE)+ 1);
         return new Enemy(random);
     }
 }
