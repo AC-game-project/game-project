@@ -12,7 +12,7 @@ public class CollisionDetector {
     }
 
     public boolean doOverlap(Enemy enemy) {
-        // TODO: 13/10/2019 check reverse places between player and enemy pictures
+
         if (!enemy.isDestroyed() && player.getPlayerPicture().getX() < (enemy.getEnemyPicture().getX() + enemy.getEnemyPicture().getWidth()) &&
                 (player.getPlayerPicture().getX() + player.getPlayerPicture().getWidth()) > enemy.getEnemyPicture().getX() &&
                 player.getPlayerPicture().getY() < (enemy.getEnemyPicture().getY() + enemy.getEnemyPicture().getHeight()) &&

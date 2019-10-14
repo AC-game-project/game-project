@@ -1,8 +1,6 @@
 package org.academiadecodigo.vimdiesels.gameprojectac;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
-import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class GameOver {
@@ -17,7 +15,7 @@ public class GameOver {
         this.gameOverBackground = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
         this.gameOverBackground.fill();
 
-        this.planet =  new Picture(40, 30, "resources/planet.png");
+        this.planet = new Picture(40, 30, "resources/planet.png");
         this.planet.draw();
 
         this.gameOverPic = new Picture(GameConfig.PADDING, GameConfig.PADDING, "resources/Stars Small_1v02.png");

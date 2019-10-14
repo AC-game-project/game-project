@@ -14,7 +14,6 @@ import java.util.LinkedList;
 public class Game implements KeyboardHandler {
 
     private Score score;
-    private boolean lost;
     private Rectangle canvasSize;
     private Picture background;
     private Picture planet;
@@ -27,7 +26,6 @@ public class Game implements KeyboardHandler {
 
     public Game() {
 
-        this.lost = false;
         this.hasStarted = false;
         this.canvasSize = new Rectangle(GameConfig.PADDING, GameConfig.PADDING, GameConfig.CANVAS_WIDTH, GameConfig.CANVAS_HEIGHT);
         this.background = new Picture(GameConfig.PADDING, GameConfig.PADDING);
@@ -43,8 +41,6 @@ public class Game implements KeyboardHandler {
         space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(space);
         addPlayerEvents();
-
-
     }
 
     public void init() throws InterruptedException {
@@ -57,13 +53,14 @@ public class Game implements KeyboardHandler {
 
         this.planet = new Picture(40, 30, "resources/planet.png");
         this.planet.draw();
+
         createEnemy();
 
         menu.init();
 
-        while (true){
+        while (true) {
             Thread.sleep(100);
-            if(hasStarted){
+            if (hasStarted) {
                 try {
                     menu.hideMenu();
                     start();
@@ -72,17 +69,16 @@ public class Game implements KeyboardHandler {
                 }
             }
         }
-
-
     }
 
 
     public void start() throws InterruptedException {
 
-
         player.init();
         score.init();
+
         this.cDetector = new CollisionDetector(player);
+
         while (!enemyLinkedList.getLast().isDestroyed()) {
             Thread.sleep(GameConfig.THREAD_DELAY);
             moveEnemy();
@@ -97,7 +93,7 @@ public class Game implements KeyboardHandler {
     }
 
 
-    public void moveEnemy() throws InterruptedException {
+    public void moveEnemy() {
 
         for (Enemy enemy : enemyLinkedList) {
             int currentI = enemyLinkedList.indexOf(enemy);
@@ -111,8 +107,9 @@ public class Game implements KeyboardHandler {
                     if (enemy.isDestroyed()) {
                         enemyLinkedList.clear();
                         GameOver gameOver = new GameOver();
-                        //continue;
+                        continue;
                     }
+
                     score.setScore(10);
                 }
             }
@@ -143,6 +140,7 @@ public class Game implements KeyboardHandler {
     }
 
     private void addPlayerEvents() {
+
         KeyboardEvent left = new KeyboardEvent();
         left.setKey(KeyboardEvent.KEY_LEFT);
         left.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);

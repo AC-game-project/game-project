@@ -1,13 +1,9 @@
 package org.academiadecodigo.vimdiesels.gameprojectac;
 
 import org.academiadecodigo.bootcamp.Sound;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Player  {
+public class Player {
 
     private Picture picture;
     private Sound shipEngine;
@@ -20,6 +16,7 @@ public class Player  {
     }
 
     public void init() {
+
         picture.draw();
     }
 
@@ -30,14 +27,16 @@ public class Player  {
 
 
     public void moveLeft() {
+
         if (picture.getX() >= picture.getWidth()) {
-        picture.translate(-10, 0);
-    }
+            picture.translate(-10, 0);
+        }
     }
 
     public void moveRight() {
+
         if (picture.getX() <= (GameConfig.CANVAS_WIDTH - picture.getWidth())) {
-        picture.translate(10, 0);
-    }
+            picture.translate(10, 0);
+        }
     }
 }
