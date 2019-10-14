@@ -9,8 +9,9 @@ public class Score {
     Text score;
 
     public Score() {
-        score = new Text(30, 30, "000");
-        score.setColor(Color.CYAN);
+        score = new Text(108, 98, "000");
+        score.setColor(Color.GRAY);
+        score.grow(20,20);
         score.draw();
     }
 

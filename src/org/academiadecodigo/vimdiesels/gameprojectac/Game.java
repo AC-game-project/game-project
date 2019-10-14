@@ -17,6 +17,7 @@ public class Game implements KeyboardHandler {
     private boolean lost;
     private Rectangle canvasSize;
     private Picture background;
+    private Picture planet;
     private CollisionDetector cDetector;
     private Menu menu;
     private Player player;
@@ -47,13 +48,17 @@ public class Game implements KeyboardHandler {
         background.load("resources/Stars Small_1v02.png");
         background.draw();
 
-        this.menu = new Menu();
+        this.planet =  new Picture(40, 30, "resources/planet.png");
+        this.planet.draw();
+
+        //this.menu = new Menu();
 
         createEnemy();
     }
 
 
     public void start() throws InterruptedException {
+
 
         this.score = new Score();
 
@@ -63,7 +68,7 @@ public class Game implements KeyboardHandler {
 
         while (!enemyLinkedList.getLast().isDestroyed()) {
 
-            Thread.sleep(5);
+            Thread.sleep(GameConfig.THREAD_DELAY);
             moveEnemy();
         }
     }
@@ -88,8 +93,9 @@ public class Game implements KeyboardHandler {
                     enemy.getEnemyPicture().delete();
 
                     if (enemy.isDestroyed()) {
-                        score.setScore(-10);
-                        continue;
+                        enemyLinkedList.clear();
+                        GameOver gameOver = new GameOver();
+                        //continue;
                     }
                     score.setScore(10);
                 }

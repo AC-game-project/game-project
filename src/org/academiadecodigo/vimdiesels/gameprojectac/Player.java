@@ -1,5 +1,6 @@
 package org.academiadecodigo.vimdiesels.gameprojectac;
 
+import org.academiadecodigo.bootcamp.Sound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -11,14 +12,14 @@ public class Player implements KeyboardHandler {
     private Picture picture;
     private Keyboard keyboard;
 
-    //private Sound shipEngine;
+    private Sound shipEngine;
 
     public Player() {
 
         this.picture = new Picture((GameConfig.CANVAS_WIDTH / 2), (GameConfig.CANVAS_HEIGHT - 100), "resources/spaceship.png");
         this.keyboard = new Keyboard(this);
-        //shipEngine = new Sound("resources/sound/slow-travel.wav");
-        //shipEngine.play(false);
+        shipEngine = new Sound("/resources/sound/slow-travel.wav");
+        shipEngine.play(false);
     }
 
     public void init() {
