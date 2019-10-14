@@ -6,8 +6,9 @@ public class Menu {
 
     private Picture splashScreen;
 
-    public Menu() {
 
+
+    public void init(){
         this.splashScreen = new Picture((GameConfig.CANVAS_WIDTH / 2) - 156, (GameConfig.CANVAS_HEIGHT / 2) - 201, "resources/splash-screen.png");
         splashScreen.draw();
     }

@@ -8,7 +8,7 @@ public class Score {
     private int points;
     Text score;
 
-    public Score() {
+    public void init() {
         score = new Text(108, 98, "000");
         score.setColor(Color.GRAY);
         score.grow(20,20);
